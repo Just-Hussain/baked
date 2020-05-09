@@ -1,8 +1,10 @@
-package com.example.baked;
+package com.example.baked.ui;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.baked.R;
 
 public class MainActivity extends AppCompatActivity {
 
