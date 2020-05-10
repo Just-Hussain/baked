@@ -16,16 +16,16 @@ import java.util.List;
 
 public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.MasterListViewHolder> {
 
-    // TODO: Implement click handling
+    private List<Recipe> data = new ArrayList<>();
+    OnRecipeListener onRecipeListener;
 
-    private List<String> data = new ArrayList<>();
+    public MasterListAdapter() {
 
-    // extracts only the names to be displayed
-    public void setData(List<Recipe> data) {
-        for (int i = 0; i < data.size(); i++) {
-            this.data.add(data.get(i).getName());
-        }
-        notifyDataSetChanged();
+    }
+
+    public MasterListAdapter(List<Recipe> data, OnRecipeListener onRecipeListener) {
+        this.data = data;
+        this.onRecipeListener = onRecipeListener;
     }
 
     @NonNull
@@ -58,9 +58,19 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Ma
             return data.size();
     }
 
+    // extracts only the names to be displayed
+    public void setData(List<Recipe> data) {
+//        for (int i = 0; i < data.size(); i++) {
+//            this.data.add(data.get(i).getName());
+//        }
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
+
     // the view holder represents one item in the recycler,
     // gets and populates the views in the item .xml
-    public class MasterListViewHolder extends RecyclerView.ViewHolder {
+    public class MasterListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvRecipeName;
 
@@ -68,10 +78,22 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Ma
             super(itemView);
 
             tvRecipeName = itemView.findViewById(R.id.tv_recipe_name);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bind(int position) {
-            tvRecipeName.setText(data.get(position));
+            tvRecipeName.setText(data.get(position).getName());
         }
+
+        @Override
+        public void onClick(View view) {
+            onRecipeListener.onRecipeClick(getAdapterPosition());
+        }
+    }
+
+    
+    interface OnRecipeListener {
+        void onRecipeClick(int pos);
     }
 }

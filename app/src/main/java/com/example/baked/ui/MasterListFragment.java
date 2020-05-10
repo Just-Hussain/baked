@@ -24,7 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
 
-public class MasterListFragment extends Fragment {
+public class MasterListFragment extends Fragment implements MasterListAdapter.OnRecipeListener {
+
+    String TAG = "MY";
+
 
     // Data retrieved from API
     public static List<Recipe> data = new ArrayList<>();
@@ -41,8 +44,7 @@ public class MasterListFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_master_list, container, false);
 
         // adapter setup
-        listAdapter = new MasterListAdapter();
-        listAdapter.setData(data);
+        listAdapter = new MasterListAdapter(data, this);
 
         // layout setup
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
@@ -93,6 +95,11 @@ public class MasterListFragment extends Fragment {
                 Log.d("errr", "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onRecipeClick(int pos) {
+        Log.d(TAG, "onRecipeClick: " + pos);
     }
 
     // Service interface provides abstract idea
