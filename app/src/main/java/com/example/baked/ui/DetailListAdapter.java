@@ -1,6 +1,5 @@
 package com.example.baked.ui;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,17 @@ import java.util.List;
 public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.DetailListViewHolder> {
 
     private List<Step> data;
+    OnStepListener onStepListener;
+
+
+    public DetailListAdapter() {
+    }
+
+    public DetailListAdapter(OnStepListener onStepListener) {
+        this.onStepListener = onStepListener;
+    }
+
+
 
     public void setData(List<Step> data) {
         this.data = data;
@@ -28,7 +38,6 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.De
     public DetailListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        Log.d( "MY", "onCreateViewHolder: detail adapter");
         View view = inflater.inflate(R.layout.item_detail_list, parent, false);
 
         DetailListViewHolder viewHolder = new DetailListViewHolder(view);
@@ -49,7 +58,7 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.De
             return data.size();
     }
 
-    public class DetailListViewHolder extends RecyclerView.ViewHolder {
+    public class DetailListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvStepShortDesc;
 
@@ -57,11 +66,20 @@ public class DetailListAdapter extends RecyclerView.Adapter<DetailListAdapter.De
             super(itemView);
 
             tvStepShortDesc = itemView.findViewById(R.id.tv_step_short_desc);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(int position) {
-            Log.d("MY", "bind step: bindin steps");
             tvStepShortDesc.setText(data.get(position).getShortDescription());
         }
+
+        @Override
+        public void onClick(View view) {
+            onStepListener.onStepClick(getAdapterPosition());
+        }
+    }
+
+    interface OnStepListener {
+        void onStepClick(int pos);
     }
 }

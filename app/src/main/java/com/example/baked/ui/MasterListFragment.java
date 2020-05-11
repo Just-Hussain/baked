@@ -69,7 +69,7 @@ public class MasterListFragment extends Fragment implements MasterListAdapter.On
     private void loadData() {
         // setup for retrofit, GSON handles parsing JSON
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.109:8081/")
+                .baseUrl("https://d17h27t6h515a5.cloudfront.net/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -106,14 +106,14 @@ public class MasterListFragment extends Fragment implements MasterListAdapter.On
         Log.d(TAG, "onRecipeClick: " + pos);
 
         final Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
-        intent.putExtra("POS", pos);
+        intent.putExtra("POS_RECIPE", pos);
         startActivity(intent);
     }
 
     // Service interface provides abstract idea
     // for required HTTP requests to let Retrofit handles it.
     public interface RecipesService {
-        @GET("/recipes")
+        @GET("/topher/2017/May/59121517_baking/baking.json")
         Call<List<Recipe>> recipes();
     }
 

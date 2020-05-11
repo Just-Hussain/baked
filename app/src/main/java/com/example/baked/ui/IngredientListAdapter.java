@@ -1,6 +1,5 @@
 package com.example.baked.ui;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +63,6 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
         }
 
         public void bind(int position) {
-            Log.d("MY", "bind ing: bindin ings");
             tvIngredientName.setText(data.get(position).getIngredient());
             tvIngredientMeasure.setText(data.get(position).getMeasure());
             tvIngredientQuantity.setText(data.get(position).getQuantity() + "");
