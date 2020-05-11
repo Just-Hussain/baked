@@ -58,11 +58,7 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Ma
             return data.size();
     }
 
-    // extracts only the names to be displayed
     public void setData(List<Recipe> data) {
-//        for (int i = 0; i < data.size(); i++) {
-//            this.data.add(data.get(i).getName());
-//        }
         this.data = data;
         notifyDataSetChanged();
     }
@@ -92,7 +88,7 @@ public class MasterListAdapter extends RecyclerView.Adapter<MasterListAdapter.Ma
         }
     }
 
-    
+
     interface OnRecipeListener {
         void onRecipeClick(int pos);
     }

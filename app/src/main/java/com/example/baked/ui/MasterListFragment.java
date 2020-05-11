@@ -1,5 +1,6 @@
 package com.example.baked.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,9 +29,12 @@ public class MasterListFragment extends Fragment implements MasterListAdapter.On
 
     String TAG = "MY";
 
+//    IngredientListAdapter ingredientListAdapter = new IngredientListAdapter();
+//    DetailListAdapter detailListAdapter = new DetailListAdapter();
 
     // Data retrieved from API
     public static List<Recipe> data = new ArrayList<>();
+
 
     MasterListAdapter listAdapter;
 
@@ -100,6 +104,10 @@ public class MasterListFragment extends Fragment implements MasterListAdapter.On
     @Override
     public void onRecipeClick(int pos) {
         Log.d(TAG, "onRecipeClick: " + pos);
+
+        final Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
+        intent.putExtra("POS", pos);
+        startActivity(intent);
     }
 
     // Service interface provides abstract idea

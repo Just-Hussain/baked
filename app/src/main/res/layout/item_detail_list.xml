@@ -15,11 +15,12 @@
     >
 
     <TextView
-        android:id="@+id/tv_recipe_name"
+        android:id="@+id/tv_step_short_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="20sp"
         android:gravity="center"
         />
-</androidx.cardview.widget.CardView>
 
+
+</androidx.cardview.widget.CardView>
