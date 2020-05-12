@@ -27,11 +27,6 @@ import retrofit2.http.GET;
 
 public class MasterListFragment extends Fragment implements MasterListAdapter.OnRecipeListener {
 
-    String TAG = "MY";
-
-//    IngredientListAdapter ingredientListAdapter = new IngredientListAdapter();
-//    DetailListAdapter detailListAdapter = new DetailListAdapter();
-
     // Data retrieved from API
     public static List<Recipe> data = new ArrayList<>();
 
@@ -84,27 +79,23 @@ public class MasterListFragment extends Fragment implements MasterListAdapter.On
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 if (response.isSuccessful()) {
-                    Log.d("resss", "onResponse: " + response.body().get(0).getName());
 
                     data = response.body();
                     listAdapter.setData(data);
                 }
                 else {
-                    Log.d("resss", "onResponse: nah mate " + response.toString());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.d("errr", "onFailure: " + t.getMessage());
+                Log.d("err", "onFailure: " + t.getMessage());
             }
         });
     }
 
     @Override
     public void onRecipeClick(int pos) {
-        Log.d(TAG, "onRecipeClick: " + pos);
-
         final Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         intent.putExtra("POS_RECIPE", pos);
         startActivity(intent);

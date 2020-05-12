@@ -1,9 +1,9 @@
 package com.example.baked.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +25,14 @@ public class RecipeDetailFragment extends Fragment implements DetailListAdapter.
     List<Recipe> data;
 
     public RecipeDetailFragment() {
+    }
+
+    OnDataPass dataPasser;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataPasser = (OnDataPass) context;
     }
 
     @Nullable
@@ -58,45 +66,22 @@ public class RecipeDetailFragment extends Fragment implements DetailListAdapter.
 
     @Override
     public void onStepClick(int pos) {
-        Log.d("MY", "onStepClick: " + pos);
 
-        final Intent intent = new Intent(getActivity(), StepDetailActivity.class);
-        intent.putExtra("POS_STEP", pos);
-        intent.putExtra("POS_RECIPE", this.pos);
-        startActivity(intent);
-
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://d17h27t6h515a5.cloudfront.net/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//
-//        testService testService = retrofit.create(RecipeDetailFragment.testService.class);
-//
-//        Call<List<Recipe>> call = testService.d();
-//
-//        call.enqueue(new Callback<List<Recipe>>() {
-//            @Override
-//            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-//                if (response.isSuccessful()) {
-//                    Log.d("MTEST", "onResponse: well " + response);
-//                }
-//                else {
-//                    Log.d("MTEST", "onResponse: well not " + response);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-//                Log.d("MTEST", "onFailure:  " + t.getMessage());
-//
-//            }
-//        });
+        if (getActivity().findViewById(R.id.ll_detail_pane) != null) {
+            dataPasser.onDataPass(pos, this.pos);
+        }
+        else {
+            final Intent intent = new Intent(getActivity(), StepDetailActivity.class);
+            intent.putExtra("POS_STEP", pos);
+            intent.putExtra("POS_RECIPE", this.pos);
+            startActivity(intent);
+        }
     }
 
-//    interface testService {
-//        @GET("/topher/2017/May/59121517_baking/baking.json")
- //        Call<List<Recipe>> d();
-//    }
+
+    public interface OnDataPass {
+        void onDataPass(int posStep, int posRecipe);
+    }
+
 }
 
